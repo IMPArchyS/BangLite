@@ -15,5 +15,16 @@
                 list[n] = value;
             }
         }
+
+        public static int InputInt(string inputText = "")
+        {
+            Console.Write(inputText);
+            string? inputString = Console.ReadLine();
+            if (int.TryParse(inputString, out int result))
+            {
+                return result;
+            }
+            return -1;
+        }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using BangLite.Decks;
 using BangLite.Players;
+using BangLite.Utils;
 
 namespace BangLite.Games
 {
@@ -15,12 +16,14 @@ namespace BangLite.Games
         {
             while (playerCount < 2 || playerCount > 4)
             {
-                Console.Write("Input the number of players (2-4): ");
-                playerCount = Convert.ToInt32(Console.ReadLine());
+                playerCount = Utility.InputInt("Input the number of players(2 - 4): ");
+                if (playerCount == -1)
+                {
+                    Console.WriteLine("Wrong Input!"); continue;
+                }
                 if (playerCount < 2 || playerCount > 4)
                 {
-                    Console.Write("The game supports only 2 to 4 players! ");
-                    playerCount = Convert.ToInt32(Console.ReadLine());
+                    Console.WriteLine("The game supports only 2 to 4 players!");
                 }
             }
             for (int i = 0; i < playerCount; i++)
@@ -43,17 +46,53 @@ namespace BangLite.Games
 
         private void GameLoop()
         {
-
+            while (deadPlayers.Count < playerCount - 1)
+            {
+                for (currentPlayer = 0; currentPlayer < players.Count; currentPlayer++)
+                {
+                    if (deck.ActiveCards.Count == 0)
+                    {
+                        deck.ReshuffleCards();
+                    }
+                    if (players.ElementAt(currentPlayer).IsAlive)
+                    {
+                        PlayerTurn();
+                    }
+                }
+            }
+            PrintWinner();
         }
 
         private void PlayerTurn()
         {
+            //bool canPlay = players.ElementAt(currentPlayer).checkEffects(players);
+            bool canPlay = true;
 
+            if (!players.ElementAt(currentPlayer).IsAlive || !canPlay)
+            {
+                return;
+            }
+
+            players.ElementAt(currentPlayer).DrawCards(deck);
+            players.ElementAt(currentPlayer).PlayCard(deck, players, deadPlayers);
+
+            if (deadPlayers.Count < playerCount && players.ElementAt(currentPlayer).Hand.Count > players.ElementAt(currentPlayer).Lives)
+            {
+                players.ElementAt(currentPlayer).DiscardCards(deck);
+            }
         }
 
         private void PrintWinner()
         {
-
+            foreach (Player player in players)
+            {
+                if (player.IsAlive)
+                {
+                    Console.ForegroundColor = ConsoleColor.Yellow;
+                    Console.WriteLine(player.Name + " is the last man standing!");
+                    Console.ForegroundColor = ConsoleColor.Gray;
+                }
+            }
         }
     }
 }
