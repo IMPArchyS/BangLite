@@ -6,11 +6,12 @@ namespace BangLite.Players
 {
     public class Player
     {
-        public List<Card> Hand { get; private set; } = new();
-        public List<Card> PassiveCards { get; private set; } = new();
         public int Lives { get; set; } = 4;
         public string Name { get; private set; } = "unknown";
-        public bool IsAlive { get; set; } = true;
+        public bool IsAlive { get => Lives > 0; }
+
+        public List<Card> Hand { get; private set; } = new();
+        public List<Card> PassiveCards { get; private set; } = new();
 
         public Player(string? name)
         {
@@ -22,7 +23,7 @@ namespace BangLite.Players
         {
             while (Hand.Count > 0)
             {
-                CheckPlayerStatuses(deck, players, deadPlayers);
+                CheckDeathCondition(deck, players, deadPlayers);
 
                 int alive = 0;
                 foreach (Player player in players)
@@ -45,9 +46,7 @@ namespace BangLite.Players
                     indexOfCard = Utility.InputInt("\nChoose card (choose 0 to skip round): ") - 1;
                     if (indexOfCard == -1)
                     {
-                        Console.ForegroundColor = ConsoleColor.Yellow;
-                        Console.WriteLine("{GAME}: " + Name + " is skipping the round!");
-                        Console.ForegroundColor = ConsoleColor.Gray;
+                        Utility.WriteColoredLine("{GAME}: " + Name + " is skipping the round!\n", ConsoleColor.Yellow);
                         return;
                     }
                     else if (indexOfCard < 0 || indexOfCard > Hand.Count - 1)
@@ -62,40 +61,83 @@ namespace BangLite.Players
 
         public bool DrawCards(Deck deck)
         {
+            if (deck.ActiveCards.Count == 1 && deck.DiscardedCards.Count > 0)
+            {
+                deck.ReshuffleCards();
+                return true;
+            }
+            if (deck.ActiveCards.Count > 0)
+            {
+                int cardsToDraw = Math.Min(deck.ActiveCards.Count, 2);
+                List<Card> drawnCards = new List<Card>(deck.ActiveCards.GetRange(0, cardsToDraw));
+                deck.ActiveCards.RemoveAll(c => drawnCards.Contains(c));
+                Hand.AddRange(drawnCards);
+                return true;
+            }
             return false;
         }
 
         public void DiscardCards(Deck deck)
         {
-
+            while (Lives != Hand.Count)
+            {
+                int indexOfCard = -1;
+                while (indexOfCard < 0 || indexOfCard > Hand.Count)
+                {
+                    DisplayHand();
+                    indexOfCard = Utility.InputInt("\nChoose card to throw away: ") - 1;
+                    if (indexOfCard < 0 || indexOfCard > Hand.Count)
+                    {
+                        Console.WriteLine("Out of bounds input! try again...");
+                    }
+                }
+                deck.DiscardedCards.Add(Hand.ElementAt(indexOfCard));
+                Hand.RemoveAt(indexOfCard);
+                Console.WriteLine("");
+            }
         }
 
+        // for blue cards
         public bool CheckEffects(List<Player> players)
         {
-            return false;
+            List<Card> copyPassives = new();
+            bool canPlay = true;
+            copyPassives.AddRange(PassiveCards);
+            foreach (Card card in copyPassives)
+            {
+                /*if (card instanceof Dynamite) {
+                    ((Dynamite)card).explode(this, players);
+                    if (card instanceof Prison) {
+                        canPlay = ((Prison)card).prisonEscape(this);
+                    }*/
+            }
+            copyPassives.Clear();
+            return canPlay;
         }
 
-        public void CheckPlayerStatuses(Deck deck, List<Player> players, List<Player> deadPlayers)
+        public void CheckDeathCondition(Deck deck, List<Player> players, List<Player> deadPlayers)
         {
-
+            for (int i = 0; i < players.Count; i++)
+            {
+                if (!players.ElementAt(i).IsAlive)
+                {
+                    if (!deadPlayers.Contains(players.ElementAt(i)))
+                    {
+                        deck.DiscardedCards.AddRange(players.ElementAt(i).Hand);
+                        players.ElementAt(i).Hand.RemoveAll(c => players.ElementAt(i).Hand.Contains(c));
+                        deadPlayers.Add(players.ElementAt(i));
+                    }
+                }
+            }
         }
 
         public void DisplayPlayerInfo()
         {
-            Console.ForegroundColor = ConsoleColor.Magenta;
-            Console.WriteLine("\n\n------| Current Player: " + Name + " |------");
-            Console.ForegroundColor = ConsoleColor.Gray;
-            Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine("Current lives: " + Lives);
-            Console.ForegroundColor = ConsoleColor.Gray;
+            Utility.WriteColoredLine("\n\n------| Current Player: " + Name + " |------", ConsoleColor.Magenta);
+            Utility.WriteColoredLine("Current lives: " + Lives, ConsoleColor.Red);
             Console.WriteLine("Active cards: ");
-            Console.ForegroundColor = ConsoleColor.Blue;
             DisplayPassiveCards();
-            Console.ForegroundColor = ConsoleColor.Gray;
-            Console.WriteLine("Current cards on Hand: ");
-            Console.ForegroundColor = ConsoleColor.Green;
             DisplayHand();
-            Console.ForegroundColor = ConsoleColor.Gray;
         }
 
         public void DisplayPassiveCards()
@@ -103,16 +145,17 @@ namespace BangLite.Players
             int index = 1;
             foreach (Card card in PassiveCards)
             {
-                Console.WriteLine(index + ". " + card.Name);
+                Utility.WriteColoredLine(index + ". " + card.Name, ConsoleColor.Blue);
                 index++;
             }
         }
 
         private void DisplayHand()
         {
+            Utility.WriteColoredLine("Current cards on Hand: ", ConsoleColor.White);
             for (int i = 0; i < Hand.Count; i++)
             {
-                Console.Write(i + 1 + ". " + Hand.ElementAt(i).Name + " ");
+                Utility.WriteColored(i + 1 + ". " + Hand.ElementAt(i).Name + " ", ConsoleColor.Green);
             }
         }
     }

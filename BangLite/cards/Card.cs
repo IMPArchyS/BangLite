@@ -1,5 +1,6 @@
 ﻿using BangLite.Decks;
 using BangLite.Players;
+using BangLite.Utils;
 
 namespace BangLite.Cards
 {
@@ -18,18 +19,19 @@ namespace BangLite.Cards
 
         public Player GetTargets(Player currentPlayer, List<Player> targets)
         {
+            Console.WriteLine("\nPossible Targets: ");
             int index = 1;
             foreach (Player player in targets)
             {
                 if (!currentPlayer.Equals(player))
                 {
-                    Console.WriteLine(index + ". " + player.Name + "{" + player.Lives + "}");
+                    Utility.WriteColoredLine(index + ". " + player.Name + " {" + player.Lives + "}", ConsoleColor.DarkRed);
                 }
                 index++;
             }
             while (true)
             {
-                Console.Write("Choose target: ");
+                Console.Write("\nChoose target: ");
                 int indexOfTarget = Convert.ToInt32(Console.ReadLine()) - 1;
                 if (indexOfTarget < 0 || indexOfTarget > targets.Count - 1)
                 {

@@ -38,9 +38,7 @@ namespace BangLite.Games
 
         private void StartGame()
         {
-            Console.ForegroundColor = ConsoleColor.Yellow;
-            Console.WriteLine("=== Game started! ===");
-            Console.ForegroundColor = ConsoleColor.Gray;
+            Utility.WriteColoredLine("=== Game started! ===", ConsoleColor.Yellow);
             GameLoop();
         }
 
@@ -65,8 +63,7 @@ namespace BangLite.Games
 
         private void PlayerTurn()
         {
-            //bool canPlay = players.ElementAt(currentPlayer).checkEffects(players);
-            bool canPlay = true;
+            bool canPlay = players.ElementAt(currentPlayer).CheckEffects(players);
 
             if (!players.ElementAt(currentPlayer).IsAlive || !canPlay)
             {
@@ -88,9 +85,7 @@ namespace BangLite.Games
             {
                 if (player.IsAlive)
                 {
-                    Console.ForegroundColor = ConsoleColor.Yellow;
-                    Console.WriteLine(player.Name + " is the last man standing!");
-                    Console.ForegroundColor = ConsoleColor.Gray;
+                    Utility.WriteColoredLine(player.Name + " is the last man standing!", ConsoleColor.Yellow);
                 }
             }
         }

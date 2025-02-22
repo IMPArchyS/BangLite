@@ -34,12 +34,12 @@ namespace BangLite.Decks
             {
                 ActiveCards.Add(new Bang(this));
             }
-            /*
+
             for (int i = 0; i < 8; i++)
             {
                 ActiveCards.Add(new Beer(this));
             }
-
+            /*
             for (int i = 0; i < 2; i++)
             {
                 ActiveCards.Add(new Barrel(this));
