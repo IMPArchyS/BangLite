@@ -8,7 +8,7 @@ namespace BangLite.Cards.Blue
     {
         public override void UseCard(Player player, List<Player> targets)
         {
-            Utility.WriteColoredLine(player.Name + "used Dynamite!", ConsoleColor.Red);
+            Utility.WriteColoredLine("\n{" + player.Name + "} USED DYNAMITE!", ConsoleColor.Yellow);
             player.PassiveCards.Add(this);
             player.Hand.Remove(this);
         }
@@ -18,7 +18,7 @@ namespace BangLite.Cards.Blue
             int chance = new Random().Next(8);
             if (chance == 0)
             {
-                Utility.WriteColoredLine("Dynamite exploded!", ConsoleColor.Red);
+                Utility.WriteColoredLine("Dynamite exploded on " + currentOwner.Name + "!", ConsoleColor.DarkBlue);
                 currentOwner.Lives -= 3;
                 deck.DiscardedCards.Add(this);
                 currentOwner.PassiveCards.Remove(this);
@@ -37,7 +37,7 @@ namespace BangLite.Cards.Blue
                         nextPlayerIndex--;
                     }
                 }
-                Utility.WriteColoredLine("Dynamite is going to " + targets.ElementAt(nextPlayerIndex).Name, ConsoleColor.Red);
+                Utility.WriteColoredLine("Dynamite is going to " + targets.ElementAt(nextPlayerIndex).Name, ConsoleColor.DarkBlue);
                 targets.ElementAt(nextPlayerIndex).PassiveCards.Add(this);
                 currentOwner.PassiveCards.Remove(this);
             }

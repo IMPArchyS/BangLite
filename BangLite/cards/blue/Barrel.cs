@@ -12,12 +12,12 @@ namespace BangLite.Cards.Blue
             {
                 if (card is Barrel)
                 {
-                    Utility.WriteColoredLine("Barrel is already active!", ConsoleColor.Red);
+                    Utility.WriteColoredLine("Barrel is already active!", ConsoleColor.DarkGreen);
                     return;
                 }
             }
 
-            Utility.WriteColoredLine(player.Name + " used Barrel!", ConsoleColor.Red);
+            Utility.WriteColoredLine("\n{" + player.Name + "}: USED BARREL!", ConsoleColor.Yellow);
             player.PassiveCards.Add(this);
             player.Hand.Remove(this);
         }
@@ -27,7 +27,7 @@ namespace BangLite.Cards.Blue
             int chance = new Random().Next(4);
             if (chance == 0)
             {
-                Utility.WriteColoredLine("Barrel blocked the shot!", ConsoleColor.Red);
+                Utility.WriteColoredLine("Barrel blocked the shot!", ConsoleColor.DarkGreen);
                 return true;
             }
             return false;

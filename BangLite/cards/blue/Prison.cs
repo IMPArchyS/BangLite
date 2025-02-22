@@ -23,7 +23,7 @@ namespace BangLite.Cards.Blue
                 {
                     if (card is Prison)
                     {
-                        Utility.WriteColoredLine(target.Name + " is already in Prison!", ConsoleColor.Red);
+                        Utility.WriteColoredLine(target.Name + " is already in Prison!", ConsoleColor.DarkGreen);
                         escaped = false;
                         break;
                     }
@@ -33,7 +33,7 @@ namespace BangLite.Cards.Blue
                     break;
                 }
             }
-            Utility.WriteColoredLine(player.Name + " used Prison on " + target.Name, ConsoleColor.Red);
+            Utility.WriteColoredLine("\n{" + player.Name + "}: USED PRISON ON " + target.Name, ConsoleColor.Yellow);
             target.PassiveCards.Add(this);
             player.Hand.Remove(this);
         }
@@ -43,14 +43,14 @@ namespace BangLite.Cards.Blue
             int chance = new Random().Next(4);
             if (chance == 0)
             {
-                Utility.WriteColoredLine(currentPrisoner.Name + " has escaped!", ConsoleColor.Red);
+                Utility.WriteColoredLine(currentPrisoner.Name + " has escaped!", ConsoleColor.DarkBlue);
                 deck.DiscardedCards.Add(this);
                 currentPrisoner.PassiveCards.Remove(this);
                 return true;
             }
             else
             {
-                Utility.WriteColoredLine(currentPrisoner.Name + " has failed to escape!", ConsoleColor.Red);
+                Utility.WriteColoredLine(currentPrisoner.Name + " has failed to escape!", ConsoleColor.DarkBlue);
                 currentPrisoner.PassiveCards.Remove(this);
                 return false;
             }

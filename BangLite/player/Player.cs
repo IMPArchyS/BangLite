@@ -44,10 +44,10 @@ namespace BangLite.Players
                 while (indexOfCard < 0 || indexOfCard > Hand.Count - 1)
                 {
                     DisplayPlayerInfo();
-                    indexOfCard = Utility.InputInt("\nChoose card (choose 0 to skip round): ") - 1;
+                    indexOfCard = Utility.InputInt("\nChoose card (choose 0 to skip round): ", ConsoleColor.DarkGray) - 1;
                     if (indexOfCard == -1)
                     {
-                        Utility.WriteColoredLine("{GAME}: " + Name + " is skipping the round!\n", ConsoleColor.Yellow);
+                        Utility.WriteColoredLine("\n{" + Name + "} IS SKIPPING THE ROUND!", ConsoleColor.Yellow);
                         return;
                     }
                     else if (indexOfCard < 0 || indexOfCard > Hand.Count - 1)
@@ -86,7 +86,7 @@ namespace BangLite.Players
                 while (indexOfCard < 0 || indexOfCard > Hand.Count)
                 {
                     DisplayHand();
-                    indexOfCard = Utility.InputInt("\nChoose card to throw away: ") - 1;
+                    indexOfCard = Utility.InputInt("\nChoose card to throw away [" + (Hand.Count - Lives) + " NEED TO GO] : ", ConsoleColor.DarkGray) - 1;
                     if (indexOfCard < 0 || indexOfCard > Hand.Count)
                     {
                         Console.WriteLine("Out of bounds input! try again...");
@@ -137,9 +137,9 @@ namespace BangLite.Players
 
         public void DisplayPlayerInfo()
         {
-            Utility.WriteColoredLine("\n\n------| Current Player: " + Name + " |------", ConsoleColor.Magenta);
-            Utility.WriteColoredLine("Current lives: " + Lives, ConsoleColor.Red);
-            Console.WriteLine("Active cards: ");
+            Utility.WriteColoredLine("\n|<=====>| CURRENT PLAYER: " + Name + " |<=====>|", ConsoleColor.Magenta);
+            Utility.WriteColoredLine("Current lives: {" + Lives + "}", ConsoleColor.Red);
+            Utility.WriteColoredLine("Active cards: ", ConsoleColor.White);
             DisplayPassiveCards();
             DisplayHand();
         }
@@ -147,9 +147,13 @@ namespace BangLite.Players
         public void DisplayPassiveCards()
         {
             int index = 1;
+            if (PassiveCards.Count == 0)
+            {
+                Console.WriteLine("");
+            }
             foreach (Card card in PassiveCards)
             {
-                Utility.WriteColoredLine(index + ". " + card.Name, ConsoleColor.Blue);
+                Utility.WriteColoredLine("[" + index + ". " + card.Name + "]", ConsoleColor.Blue);
                 index++;
             }
         }
@@ -159,7 +163,9 @@ namespace BangLite.Players
             Utility.WriteColoredLine("Current cards on Hand: ", ConsoleColor.White);
             for (int i = 0; i < Hand.Count; i++)
             {
-                Utility.WriteColored(i + 1 + ". " + Hand.ElementAt(i).Name + " ", ConsoleColor.Green);
+                Utility.WriteColored("[", ConsoleColor.White);
+                Utility.WriteColored((i + 1) + ". " + Hand.ElementAt(i).Name, ConsoleColor.Green);
+                Utility.WriteColored("] ", ConsoleColor.White);
             }
         }
     }

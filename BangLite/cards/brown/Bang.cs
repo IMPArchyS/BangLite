@@ -11,7 +11,7 @@ namespace BangLite.Cards.Brown
         {
             Player target = GetTargets(player, targets);
             bool blocked = false;
-            Utility.WriteColoredLine("{GAME} " + player.Name + " used Bang on " + target.Name, ConsoleColor.Yellow);
+            Utility.WriteColoredLine("\n{" + player.Name + "}: USED BANG ON " + target.Name, ConsoleColor.Yellow);
 
             foreach (Card card in target.PassiveCards)
             {

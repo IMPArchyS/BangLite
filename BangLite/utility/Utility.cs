@@ -16,9 +16,11 @@
             }
         }
 
-        public static int InputInt(string inputText = "")
+        public static int InputInt(string inputText = "", ConsoleColor color = ConsoleColor.Gray)
         {
+            Console.ForegroundColor = color;
             Console.Write(inputText);
+            Console.ForegroundColor = ConsoleColor.Gray;
             string? inputString = Console.ReadLine();
             if (int.TryParse(inputString, out int result))
             {

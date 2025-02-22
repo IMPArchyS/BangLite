@@ -9,7 +9,7 @@ namespace BangLite.Cards.Brown
     {
         public override void UseCard(Player player, List<Player> targets)
         {
-            Utility.WriteColoredLine(player.Name + " used Indians!", ConsoleColor.Red);
+            Utility.WriteColoredLine("\n{" + player.Name + "}: USED INDIANS!", ConsoleColor.Yellow);
             foreach (Player target in targets)
             {
                 bool getsHit = true;
@@ -25,7 +25,7 @@ namespace BangLite.Cards.Brown
                         if (card is Bang)
                         {
                             card.RemoveCard(target);
-                            Utility.WriteColoredLine(target.Name + " countered with Bang!", ConsoleColor.Red);
+                            Utility.WriteColoredLine(target.Name + " countered with Bang!", ConsoleColor.DarkYellow);
                             getsHit = false;
                             break;
                         }

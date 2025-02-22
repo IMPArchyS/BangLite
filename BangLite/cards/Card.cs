@@ -19,7 +19,7 @@ namespace BangLite.Cards
 
         public Player GetTargets(Player currentPlayer, List<Player> targets)
         {
-            Console.WriteLine("\nPossible Targets: ");
+            Utility.WriteColoredLine("\nPossible Targets: ", ConsoleColor.White);
             int index = 1;
             foreach (Player player in targets)
             {
@@ -31,8 +31,8 @@ namespace BangLite.Cards
             }
             while (true)
             {
-                Console.Write("\nChoose target: ");
-                int indexOfTarget = Convert.ToInt32(Console.ReadLine()) - 1;
+                Utility.WriteColored("Choose target: ", ConsoleColor.White);
+                int indexOfTarget = Utility.InputInt() - 1;
                 if (indexOfTarget < 0 || indexOfTarget > targets.Count - 1)
                 {
                     Console.WriteLine("Out of bounds input! Try again...");

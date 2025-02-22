@@ -8,12 +8,12 @@ namespace BangLite.Cards.Brown
     {
         public override void UseCard(Player player, List<Player> targets)
         {
-            Utility.WriteColoredLine("Can't use Missed! It's a reactionary card!", ConsoleColor.Red);
+            Utility.WriteColoredLine("Can't use Missed! It's a reactionary card!", ConsoleColor.DarkGreen);
         }
 
         public bool Miss(Player target)
         {
-            Utility.WriteColoredLine("Missed " + target.Name + "!", ConsoleColor.Red);
+            Utility.WriteColoredLine("Missed " + target.Name + "!", ConsoleColor.DarkYellow);
             RemoveCard(target);
             return true;
         }

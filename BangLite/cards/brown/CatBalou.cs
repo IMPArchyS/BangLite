@@ -11,13 +11,13 @@ namespace BangLite.Cards.Brown
             Player targetPlayer = GetTargets(player, targets);
             if (targetPlayer.Hand.Count == 0 && targetPlayer.PassiveCards.Count == 0)
             {
-                Utility.WriteColoredLine("Can't play Cat Balou, target has no cards!", ConsoleColor.Red);
+                Utility.WriteColoredLine("Can't play Cat Balou, target has no cards!", ConsoleColor.DarkGreen);
                 return;
             }
             int choice = -1;
             while (choice < 0 || choice > 1)
             {
-                choice = Utility.InputInt("Take from hand(0) or passives(1): ");
+                choice = Utility.InputInt("Take from hand(0) or passives(1): ", ConsoleColor.White);
                 if (choice < 0 || choice > 1)
                 {
                     Console.WriteLine("Out of bounds input! Try again...");
@@ -46,9 +46,9 @@ namespace BangLite.Cards.Brown
                         Console.WriteLine("Out of bounds input! try again...");
                     }
                 }
-                deck.DiscardedCards.Add(targetPlayer.Hand.ElementAt(indexOfCard));
+                deck.DiscardedCards.Add(targetPlayer.PassiveCards.ElementAt(indexOfCard));
                 takenCard = targetPlayer.PassiveCards.ElementAt(indexOfCard);
-                targetPlayer.Hand.RemoveAt(indexOfCard);
+                targetPlayer.PassiveCards.RemoveAt(indexOfCard);
             }
             else
             {
@@ -57,7 +57,7 @@ namespace BangLite.Cards.Brown
                 takenCard = targetPlayer.Hand.ElementAt(indexOfCard);
                 targetPlayer.Hand.RemoveAt(indexOfCard);
             }
-            Utility.WriteColoredLine(player.Name + " used Cat Balou on " + targetPlayer.Name + "'s " + takenCard.Name, ConsoleColor.Red);
+            Utility.WriteColoredLine("\n{" + player.Name + "}: USED CAT BALOU ON " + targetPlayer.Name + "'s " + takenCard.Name, ConsoleColor.Yellow);
             RemoveCard(player);
         }
     }

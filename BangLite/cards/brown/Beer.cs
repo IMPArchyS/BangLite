@@ -9,7 +9,7 @@ namespace BangLite.Cards.Brown
         public override void UseCard(Player player, List<Player> targets)
         {
             player.Lives++;
-            Utility.WriteColoredLine("{GAME} " + player.Name + " used Beer!", ConsoleColor.Yellow);
+            Utility.WriteColoredLine("\n{" + player.Name + "}: USED BEER!", ConsoleColor.Yellow);
             RemoveCard(player);
         }
     }

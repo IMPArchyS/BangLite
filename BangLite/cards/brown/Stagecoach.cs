@@ -11,12 +11,12 @@ namespace BangLite.Cards.Brown
             bool canDraw = player.DrawCards(deck);
             if (canDraw)
             {
-                Utility.WriteColoredLine(player.Name + " used Stagecoach!", ConsoleColor.Red);
+                Utility.WriteColoredLine("\n{" + player.Name + "}: USED STAGECOACH!", ConsoleColor.Yellow);
                 RemoveCard(player);
             }
             else
             {
-                Utility.WriteColoredLine("Can't use Stagecoach, no cards left!", ConsoleColor.Red);
+                Utility.WriteColoredLine("Can't use Stagecoach, no cards left!", ConsoleColor.DarkGreen);
             }
         }
     }
