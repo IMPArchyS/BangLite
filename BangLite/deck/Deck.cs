@@ -1,4 +1,6 @@
 ﻿using BangLite.Cards;
+using BangLite.Cards.Blue;
+using BangLite.Cards.Brown;
 using BangLite.Players;
 using BangLite.Utils;
 
@@ -39,7 +41,12 @@ namespace BangLite.Decks
             {
                 ActiveCards.Add(new Beer(this));
             }
-            /*
+
+            for (int i = 0; i < 15; i++)
+            {
+                ActiveCards.Add(new Missed(this));
+            }
+
             for (int i = 0; i < 2; i++)
             {
                 ActiveCards.Add(new Barrel(this));
@@ -55,11 +62,6 @@ namespace BangLite.Decks
                 ActiveCards.Add(new Stagecoach(this));
             }
 
-            for (int i = 0; i < 15; i++)
-            {
-                ActiveCards.Add(new Missed(this));
-            }
-
             for (int i = 0; i < 2; i++)
             {
                 ActiveCards.Add(new Indians(this));
@@ -71,7 +73,7 @@ namespace BangLite.Decks
             }
 
             ActiveCards.Add(new Dynamite(this));
-            */
+
             Utility.Shuffle(ActiveCards);
         }
 

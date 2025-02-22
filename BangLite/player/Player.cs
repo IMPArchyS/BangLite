@@ -1,4 +1,5 @@
 ﻿using BangLite.Cards;
+using BangLite.Cards.Blue;
 using BangLite.Decks;
 using BangLite.Utils;
 
@@ -105,11 +106,14 @@ namespace BangLite.Players
             copyPassives.AddRange(PassiveCards);
             foreach (Card card in copyPassives)
             {
-                /*if (card instanceof Dynamite) {
-                    ((Dynamite)card).explode(this, players);
-                    if (card instanceof Prison) {
-                        canPlay = ((Prison)card).prisonEscape(this);
-                    }*/
+                if (card is Dynamite dynamite)
+                {
+                    dynamite.Explode(this, players);
+                }
+                if (card is Prison prison)
+                {
+                    canPlay = prison.Escape(this);
+                }
             }
             copyPassives.Clear();
             return canPlay;

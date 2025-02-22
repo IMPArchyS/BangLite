@@ -2,7 +2,7 @@
 using BangLite.Players;
 using BangLite.Utils;
 
-namespace BangLite.Cards
+namespace BangLite.Cards.Brown
 {
     public class Beer(Deck deck) : Card("Beer", deck)
     {
