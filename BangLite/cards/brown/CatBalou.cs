@@ -17,7 +17,7 @@ namespace BangLite.Cards.Brown
             int choice = -1;
             while (choice < 0 || choice > 1)
             {
-                choice = Utility.InputInt("Take from hand(0) or passives(1): ", ConsoleColor.White);
+                choice = Utility.ReadInt("Take from hand(0) or passives(1): ", ConsoleColor.White);
                 if (choice < 0 || choice > 1)
                 {
                     Console.WriteLine("Out of bounds input! Try again...");
@@ -40,7 +40,7 @@ namespace BangLite.Cards.Brown
                 while (indexOfCard < 0 || indexOfCard > targetPlayer.PassiveCards.Count - 1)
                 {
                     targetPlayer.DisplayPassiveCards();
-                    indexOfCard = Utility.InputInt("\nChoose card:") - 1;
+                    indexOfCard = Utility.ReadInt("\nChoose card:") - 1;
                     if (indexOfCard < 0 || indexOfCard > targetPlayer.PassiveCards.Count - 1)
                     {
                         Console.WriteLine("Out of bounds input! try again...");

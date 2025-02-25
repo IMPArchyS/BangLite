@@ -44,7 +44,7 @@ namespace BangLite.Players
                 while (indexOfCard < 0 || indexOfCard > Hand.Count - 1)
                 {
                     DisplayPlayerInfo();
-                    indexOfCard = Utility.InputInt("\nChoose card (choose 0 to skip round): ", ConsoleColor.DarkGray) - 1;
+                    indexOfCard = Utility.ReadInt("\nChoose card (choose 0 to skip round): ", ConsoleColor.DarkGray) - 1;
                     if (indexOfCard == -1)
                     {
                         Utility.WriteColoredLine("\n{" + Name + "} IS SKIPPING THE ROUND!", ConsoleColor.Yellow);
@@ -86,7 +86,7 @@ namespace BangLite.Players
                 while (indexOfCard < 0 || indexOfCard > Hand.Count)
                 {
                     DisplayHand();
-                    indexOfCard = Utility.InputInt("\nChoose card to throw away [" + (Hand.Count - Lives) + " NEED TO GO] : ", ConsoleColor.DarkGray) - 1;
+                    indexOfCard = Utility.ReadInt("\nChoose card to throw away [" + (Hand.Count - Lives) + " NEED TO GO] : ", ConsoleColor.DarkGray) - 1;
                     if (indexOfCard < 0 || indexOfCard > Hand.Count)
                     {
                         Console.WriteLine("Out of bounds input! try again...");

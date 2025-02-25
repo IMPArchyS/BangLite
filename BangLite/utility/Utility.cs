@@ -16,7 +16,7 @@
             }
         }
 
-        public static int InputInt(string inputText = "", ConsoleColor color = ConsoleColor.Gray)
+        public static int ReadInt(string inputText = "", ConsoleColor color = ConsoleColor.Gray)
         {
             Console.ForegroundColor = color;
             Console.Write(inputText);
@@ -35,6 +35,7 @@
             Console.Write(text);
             Console.ForegroundColor = ConsoleColor.Gray;
         }
+
         public static void WriteColoredLine(string text, ConsoleColor color)
         {
             Console.ForegroundColor = color;

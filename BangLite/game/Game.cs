@@ -16,7 +16,7 @@ namespace BangLite.Games
         {
             while (playerCount < 2 || playerCount > 4)
             {
-                playerCount = Utility.InputInt("Input the number of players(2 - 4): ");
+                playerCount = Utility.ReadInt("Input the number of players(2 - 4): ");
                 if (playerCount == -1)
                 {
                     Console.WriteLine("Wrong Input!"); continue;

@@ -32,7 +32,7 @@ namespace BangLite.Cards
             while (true)
             {
                 Utility.WriteColored("Choose target: ", ConsoleColor.White);
-                int indexOfTarget = Utility.InputInt() - 1;
+                int indexOfTarget = Utility.ReadInt() - 1;
                 if (indexOfTarget < 0 || indexOfTarget > targets.Count - 1)
                 {
                     Console.WriteLine("Out of bounds input! Try again...");
